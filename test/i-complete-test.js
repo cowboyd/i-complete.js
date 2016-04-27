@@ -80,10 +80,10 @@ describe("IComplete", function() {
       });
       describe("selecting a match directly", function() {
         beforeEach(function() {
-          state = state.select(state.matches[1]);
+          state = state.select();
         });
         it("marks that match as the selection", function() {
-          expect(state.value).to.equal('bob bob');
+          expect(state.value).to.equal(null);
         });
         it("clears out the matches", function() {
           expect(state.matches).to.deep.equal([]);
@@ -92,7 +92,7 @@ describe("IComplete", function() {
           expect(state.isInspectingMatches).to.equal(false);
         });
         it("retains the query for that selection", function() {
-          expect(state.query).to.equal('bob');
+          expect(state.query).to.equal('');
         });
         it("clears out the current match", function() {
           expect(state.currentMatch.isNull).to.equal(true);
@@ -169,7 +169,7 @@ describe("IComplete", function() {
     });
   });
 
-  describe.skip("with a constant default match", function() {
+  describe("with a constant default match", function() {
     beforeEach(function() {
       state = new IComplete({
         defaultMatch: "iam default"
@@ -184,7 +184,7 @@ describe("IComplete", function() {
     });
   });
 
-  describe.skip("with a function default match", function() {
+  describe("with a function default match", function() {
     beforeEach(function() {
       state = new IComplete({
         defaultMatch: query => `iamdefault 4 ${query}`

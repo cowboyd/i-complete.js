@@ -18,6 +18,7 @@ class InitialState extends CompletionState {
       query: attrs.query || '',
       value: attrs.value || null,
       reason: attrs.reason || null,
+      defaultMatch: attrs.defaultMatch,
       matches: []
     });
   }
@@ -46,11 +47,17 @@ class PendingState extends CompletionState {
 
   resolve(results) {
     return new InspectingMatches(this, (state)=> {
+      let defaultValue = this.initial.defaultMatch;
+
+      let defaultMatch = defaultValue ? [new Match(state, {
+        value: defaultValue.call ? defaultValue.call(null, this.query) : defaultValue,
+        isDefault: true
+      })] : [];
       return {
         matches: results.map((r, i)=> new Match(state, {
           value: r,
           index: i
-        }))
+        })).concat(defaultMatch)
       };
     });
   }
@@ -74,6 +81,8 @@ class InspectingMatches extends CompletionState {
 
   get value() { return this.pending.value; }
 
+  get initial() { return this.pending.initial; }
+
   get isInspectingMatches() { return true; }
 
   get currentMatch() {
@@ -85,10 +94,7 @@ class InspectingMatches extends CompletionState {
   }
 
   select(match) {
-    return new InitialState({
-      query: this.query,
-      value: match.value
-    });
+    return new InitialState();
   }
 
   inspectNextMatch() {
