@@ -1,0 +1,36 @@
+{
+  "name": "i-complete",
+  "version": "0.1.0",
+  "description": "Pure JavaScript completion model",
+  "main": "./lib/recomplete.js",
+  "jsnext:main": "./src/recomplete.js",
+  "dependencies": {
+    "babel-runtime": "^6.5.0"
+  },
+  "devDependencies": {
+    "babel": "^5.8.23",
+    "chai": "^3.4.0",
+    "mocha": "^2.3.3"
+  },
+  "scripts": {
+    "prepublish": "babel --optional runtime src/ --out-dir lib/ --source-maps",
+    "test": "mocha --reporter min --full-trace test/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cowboyd/i-complete.js.git"
+  },
+  "keywords": [
+    "completion",
+    "autocomplete",
+    "mvc",
+    "frp",
+    "immutable"
+  ],
+  "author": "Charles Lowell <cowboyd@frontside.io>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cowboyd/i-complete.js/issues"
+  },
+  "homepage": "https://github.com/cowboyd/i-complete.js#readme"
+}
